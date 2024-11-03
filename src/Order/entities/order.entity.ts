@@ -1,4 +1,3 @@
-import { Client } from './../../../node_modules/@grpc/grpc-js/src/client';
 import { Entity, Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { OrderStatus } from "../order-status.enum";
 
@@ -27,10 +26,10 @@ export class Order {
   deleted_at: Date;
 
   @Column({ type: "bigint", nullable: false })
-  ClientCode: number;
+  clientCode: number;
 
-  @Column("jsonb")
-  orderItems: { productId: string; quantity: number; unitPrice: number }[];
+  @Column("json")
+  orderItems: { productId: number; quantity: number; unitPrice: number }[];
 
   @Column({ type: "decimal", precision: 12, scale: 2 })
   totalAmount: number;

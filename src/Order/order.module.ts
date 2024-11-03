@@ -9,17 +9,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Order]),
-    ClientsModule.register([
-      {
-        name: 'PRODUCT_SERVICE',
-        transport: Transport.GRPC,
-        options: {
-          package: 'products',
-          protoPath: join(__dirname, '../protos/product.proto'),
-          url: 'localhost:50051',
-        },
-      },
-    ]),
+    // ClientsModule.register([
+    //   {
+    //     name: 'PRODUCT_SERVICE',
+    //     transport: Transport.GRPC,
+    //     options: {
+    //       package: 'products',
+    //       protoPath: join(__dirname, '../protos/product.proto'),
+    //       url: 'localhost:50051',
+    //     },
+    //   },
+    // ]),
   ],
   controllers: [OrderController],
   providers: [OrderService],

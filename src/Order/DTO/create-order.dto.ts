@@ -17,13 +17,13 @@ export class CreateOrderDto {
     items: {
       type: 'object',
       properties: {
-        productId: { type: 'string', format: 'uuid', description: 'Identifier of the product' },
+        productId: { type: 'number', format: 'int', description: 'Identifier of the product' },
         quantity: { type: 'integer', description: 'Quantity of the product ordered' },
         unitPrice: { type: 'number', format: 'double', description: 'Price per unit at the time of order' },
       },
     },
   })
-  orderItems: { productId: string; quantity: number; unitPrice: number }[];
+  orderItems: { productId: number; quantity: number; unitPrice: number }[];
 
   @ApiProperty({ description: 'Total cost of the order', example: 100.50 })
   totalAmount: number;

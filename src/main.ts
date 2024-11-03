@@ -13,14 +13,14 @@ async function bootstrap() {
   const port = process.env.PORT;  
   const app = await NestFactory.create(AppModule);
 
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.GRPC,
-    options: {
-      package: 'users',
-      protoPath: join(__dirname, './Order/order.proto'),
-      url: 'localhost:50051',
-    },
-  });
+  // app.connectMicroservice<MicroserviceOptions>({
+  //   transport: Transport.GRPC,
+  //   options: {
+  //     package: 'users',
+  //     protoPath: join(__dirname, './Order/order.proto'),
+  //     url: 'localhost:50051',
+  //   },
+  // });
 
     // Enable CORS
     app.use(cors());
@@ -39,7 +39,7 @@ async function bootstrap() {
 
   // Enable validation globally
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  await app.startAllMicroservices();
+  // await app.startAllMicroservices();
   await app.listen(port);
 }
 bootstrap();
