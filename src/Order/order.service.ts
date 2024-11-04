@@ -4,13 +4,14 @@ import { CreateOrderDto } from "./dto/create-order.dto";
 import { Order } from "./entities/order.entity";
 import { Equal, Like, Repository } from "typeorm";
 import { FailureResponse, SuccessResponse } from "src/classes";
-import { CreateProductRequestWithOrdersDto, CreateProductResponseWithOrdersDto, ProductDataResponse } from "./DTO/create-product-with-orders.dto";
+import { CreateOrderCheckAndUpdateProductRequest, CreateOrderCheckAndUpdateProductResponse, CreateProductRequestWithOrdersDto, CreateProductResponseWithOrdersDto, ProductDataResponse } from "./DTO/micro-service.dto";
 import { lastValueFrom, Observable } from "rxjs";
 import { ClientGrpc } from "@nestjs/microservices";
 
 interface ProductServiceClient {
   createProductWithOrders(data: CreateProductRequestWithOrdersDto): Observable<CreateProductResponseWithOrdersDto>;
   GetProductsByIds(data: { ids: number[] }): Observable<{products: ProductDataResponse[]}>;
+  CreateOrderWithCheckProductUndUpdate(data: CreateOrderCheckAndUpdateProductRequest): Observable<CreateOrderCheckAndUpdateProductResponse>;
 }
 
 @Injectable()
@@ -137,8 +138,27 @@ export class OrderService implements OnModuleInit {
 
       return { ...new SuccessResponse(), data: orders  };
     } catch (error) {
-      console.log(error);
+      return { ...new FailureResponse(), error_message: error };
+    }
+  }
+  async createOrderWithCheckDetails(orders: CreateOrderCheckAndUpdateProductRequest): Promise<ResponseApi> {
+    try {
       
+      const {status, totalAmount, orderItems, clientCode} = await lastValueFrom(this.productServiceClient.CreateOrderWithCheckProductUndUpdate(orders));
+     
+      // now create order
+      const  createOrderDto = {
+        clientCode: orders.clientCode, 
+        status,
+        totalAmount,  
+        orderItems
+      }
+      console.log(createOrderDto);
+      
+      const order = await this.orderRepository.save(createOrderDto);
+      return { ...new SuccessResponse(), data: order  };
+
+    } catch (error) {
       return { ...new FailureResponse(), error_message: error };
     }
   }

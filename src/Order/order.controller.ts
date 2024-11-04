@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { OrderService } from "./order.service";
 import { CreateOrderDto } from "./dto/create-order.dto";
-import { CreateProductRequestWithOrdersDto } from "./DTO/create-product-with-orders.dto";
+import { CreateOrderCheckAndUpdateProductRequest, CreateProductRequestWithOrdersDto } from "./DTO/micro-service.dto";
 
 
 @Controller("order")
@@ -47,5 +47,10 @@ export class OrderController {
     @Get('/details/orders')
     async getOrderWithDetails() {
       return this.orderService.getOrderWithDetails();
+    }
+
+    @Post('/check-product/orders')
+    async createOrderWithCheckProductsAndUpdateIt(@Body() orders: CreateOrderCheckAndUpdateProductRequest) {
+      return this.orderService.createOrderWithCheckDetails(orders);
     }
 }

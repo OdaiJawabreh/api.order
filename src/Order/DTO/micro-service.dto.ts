@@ -28,5 +28,24 @@ export class CreateProductRequestWithOrdersDto {
     stock: number
   }
 
+  export class CreateOrderCheckAndUpdateProductRequest {
+    clientCode: number;
+    orderItems: Item[]  
+  }
+  
+  export class CreateOrderCheckAndUpdateProductResponse {
+    totalAmount: number;
+    status: string;
+    orderItems: Item[];
+    clientCode: number;
+  }
+  
+  
+  export class Item {
+    productId: number; 
+    quantity: number;
+    unitPrice: number
+  }
+
   
   

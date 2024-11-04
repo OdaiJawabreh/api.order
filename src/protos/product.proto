@@ -52,6 +52,7 @@ message Product {
 // Request message to create a order with check product and update orders
 message CreateOrderWithCheckProductRequest {
   repeated Item orderItems = 2;
+  int32 clientCode =1;
 }
 
 // Item message
@@ -65,4 +66,6 @@ message CreateOrderWithCheckProductResponse {
   string status = 1;
   float totalAmount = 2;
   repeated Item orderItems = 3;
+  int32 clientCode = 4;
+
 }
