@@ -20,7 +20,7 @@ async function bootstrap() {
   //     protoPath: join(__dirname, 'protos/product.proto'),
   //     url: 'localhost:50052',
   //   },
-  // });
+  // }); this if i want to make this project to send req, and its okay to be sender and reviver in the same time
 
     // Enable CORS
     app.use(cors());

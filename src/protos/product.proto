@@ -5,6 +5,7 @@ package products;
 service ProductService {
   rpc CreateProductWithOrders (CreateProductRequestWithOrders) returns (CreateProductResponseWithOrders);
   rpc GetProductsByIds (GetProductsByIdsRequest) returns (GetProductsByIdsResponse);
+  rpc CreateOrderWithCheckProductUndUpdate (CreateOrderWithCheckProductRequest) returns (CreateOrderWithCheckProductResponse);
 }
 
 // Request message to create a product with orders
@@ -47,4 +48,21 @@ message Product {
   float price = 4;
   string sku = 5;
   float stock = 6;
+}
+// Request message to create a order with check product and update orders
+message CreateOrderWithCheckProductRequest {
+  repeated Item orderItems = 2;
+}
+
+// Item message
+message Item {
+int32 productId = 7;
+int32 quantity = 1;
+int32 unitPrice = 2;
+}
+
+message CreateOrderWithCheckProductResponse {
+  string status = 1;
+  float totalAmount = 2;
+  repeated Item orderItems = 3;
 }

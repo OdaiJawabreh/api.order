@@ -9,7 +9,7 @@ export class CreateOrderDto {
   })
   @IsNotEmpty()
   @IsNumber()
-  ClientCode: number;
+  clientCode: number;
 
   @ApiProperty({
     description: 'List of products in the order',
