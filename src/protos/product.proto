@@ -3,23 +3,28 @@ syntax = "proto3";
 package products;
 
 service ProductService {
-  rpc GetProduct (GetProductRequest) returns (ProductResponse);
-  rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
+  rpc CreateProductWithOrders (CreateProductRequestWithOrders) returns (CreateProductResponseWithOrders);
 }
 
-message CreateProductRequest {
+// Request message to create a product with orders
+message CreateProductRequestWithOrders {
   string name = 1;
-  float price = 2;
-  float stock = 3;
+  optional string description = 2; // not required
+  string category = 3;
+  string sku = 4;
+  float price = 5;
+  float stock = 6;
+  int32 clientCode = 7;
+  int32 quantity = 8;
 }
 
-message GetProductRequest {
-  int32 id = 1;
+// Response message for the product creation with orders
+message CreateProductResponseWithOrders {
+  int32 clientCode = 1;
+  int32 productId = 2;
+  int32 quantity = 3;
+  float unitPrice = 4;
+  float totalAmount = 5;
+  string status = 6;
 }
 
-message ProductResponse {
-  int32 id = 1;
-  string name = 2;
-  float price = 3;
-  float stock = 4;
-}

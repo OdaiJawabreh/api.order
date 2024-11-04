@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { OrderService } from "./order.service";
 import { CreateOrderDto } from "./dto/create-order.dto";
+import { CreateProductRequestWithOrdersDto } from "./DTO/create-product-with-orders.dto";
+
 
 @Controller("order")
 export class OrderController {
@@ -35,5 +37,15 @@ export class OrderController {
     @Delete(':id')
     delete(@Param('id') id: string) {
       return this.orderService.delete(+id);
+    };
+
+    // @Get('users')
+    // async getUsers() {
+    //   return this.usersService.GetUser({ email: 'Jon@gmail.com' });
+    // }
+
+    @Post('create-with-product')
+    async createOrderWithProduct(@Body() productData: CreateProductRequestWithOrdersDto) {
+      return this.orderService.createOrderWithProduct(productData);
     }
 }

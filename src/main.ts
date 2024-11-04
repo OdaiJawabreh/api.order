@@ -16,8 +16,8 @@ async function bootstrap() {
   // app.connectMicroservice<MicroserviceOptions>({
   //   transport: Transport.GRPC,
   //   options: {
-  //     package: 'users',
-  //     protoPath: join(__dirname, './Order/order.proto'),
+  //     package: 'products',
+  //     protoPath: join(__dirname, 'protos/product.proto'),
   //     url: 'localhost:50051',
   //   },
   // });
