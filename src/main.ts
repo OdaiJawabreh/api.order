@@ -18,7 +18,7 @@ async function bootstrap() {
   //   options: {
   //     package: 'products',
   //     protoPath: join(__dirname, 'protos/product.proto'),
-  //     url: 'localhost:50051',
+  //     url: 'localhost:50052',
   //   },
   // });
 

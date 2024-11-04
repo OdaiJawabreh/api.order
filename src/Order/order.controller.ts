@@ -39,13 +39,13 @@ export class OrderController {
       return this.orderService.delete(+id);
     };
 
-    // @Get('users')
-    // async getUsers() {
-    //   return this.usersService.GetUser({ email: 'Jon@gmail.com' });
-    // }
-
     @Post('create-with-product')
     async createOrderWithProduct(@Body() productData: CreateProductRequestWithOrdersDto) {
       return this.orderService.createOrderWithProduct(productData);
+    }
+
+    @Get('/details/orders')
+    async getOrderWithDetails() {
+      return this.orderService.getOrderWithDetails();
     }
 }

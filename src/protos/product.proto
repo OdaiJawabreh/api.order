@@ -4,6 +4,7 @@ package products;
 
 service ProductService {
   rpc CreateProductWithOrders (CreateProductRequestWithOrders) returns (CreateProductResponseWithOrders);
+  rpc GetProductsByIds (GetProductsByIdsRequest) returns (GetProductsByIdsResponse);
 }
 
 // Request message to create a product with orders
@@ -28,3 +29,22 @@ message CreateProductResponseWithOrders {
   string status = 6;
 }
 
+message GetProductsByIdsRequest {
+  repeated int32 ids = 1; 
+}
+
+// Response message for getting products by IDs
+message GetProductsByIdsResponse {
+  repeated Product products = 1; // Use repeated here to define a list of products
+}
+
+// Product message representing a product object
+message Product {
+  int32 id = 7;
+  string name = 1;
+  string description = 2;
+  string category = 3;
+  float price = 4;
+  string sku = 5;
+  float stock = 6;
+}

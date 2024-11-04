@@ -17,5 +17,16 @@ export class CreateProductRequestWithOrdersDto {
     totalAmount: number;
     status: string;
   }
+
+  export class ProductDataResponse {
+    id: number;
+    name: string;
+    description?: string;
+    category: string;
+    price: number;
+    sku: string;
+    stock: number
+  }
+
   
   
