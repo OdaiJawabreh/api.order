@@ -1,73 +1,316 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Microservice-based Application with NestJS
 
-## Description
+  
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project demonstrates a microservice-based architecture using Nest.js, implementing two separate services for **Product Management** and **Order Management**. The services communicate with each other to manage products and orders through REST and gRPC APIs.
 
-## Installation
+  
+
+## Table of Contents
+
+- [Architecture Overview](#architecture-overview)
+
+- [Services](#services)
+
+- [How to Run](#how-to-run)
+
+- [Database Setup](#database-setup)
+
+- [Swagger API Documentation](#swagger-api-documentation)
+
+- [API Documentation](#api-documentation)
+
+- [Communication Between Services](#communication-between-services)
+
+  
+
+## Architecture Overview
+
+  
+
+This application is composed of two microservices:
+
+1.  **Product Service**: Manages CRUD operations for products.
+
+2.  **Order Service**: Manages CRUD operations for orders and interacts with the product service to associate orders with products and make update in product database through order project.
+
+  
+
+Each service can operate independently and communicates with the other through APIs.
+
+  
+
+## Services
+
+  
+
+### 1. Product Service
+
+Repository: [api.product](https://github.com/OdaiJawabreh/api.product)
+
+  
+
+#### Features:
+
+- Create, read, update, filter ,and delete products.
+
+- List available products.
+
+  
+
+### 2. Order Service
+
+Repository: [api.order](https://github.com/OdaiJawabreh/api.order)
+
+  
+
+#### Features:
+
+- Create, read, update, filter ,and delete orders.
+
+- Associate an order with one or more products by communicating with the product service.
+
+  
+
+## How to Run
+
+  
+
+### Prerequisites:
+
+- Node.js (v16 or higher)
+  
+
+### Steps:
+
+  
+
+1. Clone the repositories:
 
 ```bash
-$ npm install
+
+git clone https://github.com/OdaiJawabreh/api.product.git
+
+git clone https://github.com/OdaiJawabreh/api.order.git
+
 ```
 
-## Running the app
+  
+
+2. Navigate to each service's directory and install dependencies:
 
 ```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+cd api.product
 
-# production mode
-$ npm run start:prod
+npm install
+
+  
+
+cd ../api.order
+
+npm install
+
 ```
 
-## Test
+  
+
+3. Start the services:
+
+- You can start each service using `npm run start` or use Docker to containerize them.
 
 ```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+# Start Product Service
 
-# test coverage
-$ npm run test:cov
+cd api.product
+
+npm run start
+
+  
+
+# Start Order Service
+
+cd ../api.order
+
+npm run start
+
 ```
 
-## Support
+  
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. The services will start on the following ports:
 
-## Stay in touch
+- Product Service: `http://localhost:3000`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Order Service: `http://localhost:3010`
+- gRPC  : `http://localhost:50051`
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+
+  
+
+## Database Setup
+
+  
+
+Each microservice can use its own database, and you can configure this in the `.env` files located in each service's root directory.
+
+  
+
+### Environment Variables
+
+1.  **Product Service**:
+
+Create a `.env` file inside the `api.product` directory with the following configuration:
+
+```env
+
+DATABASE_HOST=localhost
+
+DATABASE_PORT=5432
+
+DATABASE_USER=your_user
+
+DATABASE_PASSWORD=your_password
+
+DATABASE_NAME=product_db
+
+```
+
+  
+
+2.  **Order Service**:
+
+Create a `.env` file inside the `api.order` directory with the following configuration:
+
+```env
+
+DATABASE_HOST=localhost
+
+DATABASE_PORT=5432
+
+DATABASE_USER=your_user
+
+DATABASE_PASSWORD=your_password
+
+DATABASE_NAME=order_db
+
+```
+
+
+  
+
+Ensure that your database is up and running, and the credentials in the `.env` files match the database setup.
+
+  
+
+## Swagger API Documentation
+
+  
+
+Both services are configured with Swagger to provide interactive API documentation.
+
+  
+
+1.  **Product Service**: After starting the product service, access Swagger documentation at:
+
+```
+
+http://localhost:3000/docs-product-api
+
+```
+
+  
+
+2.  **Order Service**: After starting the order service, access Swagger documentation at:
+
+```
+
+http://localhost:3010/docs-order-api
+
+```
+
+  
+
+Swagger provides a user-friendly interface to test all available endpoints and view the API schema.
+
+  
+
+### How to Enable Swagger
+
+If not already enabled, you can add Swagger to each service by following these steps:
+
+  
+
+ Install Swagger dependencies:
+
+```bash
+
+npm install --save @nestjs/swagger swagger-ui-express
+
+```
+
+  
+
+
+
+  
+
+## API Documentation
+
+  
+
+### Product Service:
+
+-  **GET**  `/products`: List all products with pagination and filter by the name.
+
+-  **POST**  `/products`: Create a new product.
+
+-  **GET**  `/products/:id`: Get a product by ID.
+
+-  **PUT**  `/products/:id`: Update a product by ID.
+
+-  **DELETE**  `/products/:id`: Delete a product by ID.
+
+  
+
+### Order Service:
+
+-  **GET**  `/orders`: List all orders with pagination and filter by the clint code.
+
+-  **POST**  `/orders`: Create a new order. Requires product IDs from the product service.
+
+-  **GET**  `/orders/:id`: Get an order by ID, including the associated products.
+
+-  **PUT**  `/orders/:id`: Update an order by ID.
+
+-  **DELETE**  `/orders/:id`: Delete an order by ID.
+-   **POST**  `/orders/create-with-product`: Create a new order, and new product related to the order at the same time.
+-   **GET**  `/orders/details/orders`: List all orders with details about the product form product management system.
+-   **POST**  `/orders/check-product/orders`:  this will take the product id with how much you need, the we check if there is availble quantity or not, and calculate the total amount order from product service based on product and edit the list of orderItems based on it.
+
+  
+
+## Communication Between Services
+
+  
+
+When creating an order, the order service communicates with the product service to fetch product details. This can be done using:
+
+-  **REST API**: The order service makes HTTP calls to the product service to retrieve product information.
+
+-  **gRPC (optional)**: Alternatively, gRPC can be used for more efficient communication between services.
+
+  
+
+### Example Flow:
+
+-   **POST**  `/orders/create-with-product`: Create a new order, and new product related to the order at the same time.
+-   **GET**  `/orders/details/orders`: List all orders with details about the product form product management system.
+-   **POST**  `/orders/check-product/orders`:  this will take the product id with how much you need, the we check if there is availble quantity or not, and calculate the total amount order from product service based on product and edit the list of orderItems based on it.
+
+  
